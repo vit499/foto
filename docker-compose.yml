@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  api:
+    build: ./api
+    container_name: d02-api
+    command: npm run start
+    restart: unless-stopped
+    networks: 
+      - d02-network
+    environment:
+      - PORT=3004
+      - HOST=d02.ru
+      - MONGO_URL=mongodb://api_db:27017/api
+    ports:
+      - "3004:3004"
+    expose:
+      - "3004"
+    depends_on:
+      - api_db
+
+  api_db:
+    image: mongo:latest
+    container_name: d02-api-db
+    restart: unless-stopped
+    networks:
+      - d02-network
+    volumes:
+      - mongodb_api:/data/db
+
+volumes:
+  mongodb_api:
+
+networks:
+  d02-network: 
+    driver: bridge
