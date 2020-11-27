@@ -1,18 +1,14 @@
-import axios from "axios";
+import React from 'react'
+import {BrowserRouter as Router} from 'react-router-dom'
+import Routes from 'routes'
+import 'materialize-css'
 
 function App() {
-  const getApiRequest = () => {
-    console.log("get api")
-    axios("/api/k").then(response => {
-      console.log('response', response);
-    });
-  }
 
   return (
-    <div>
-      <h3>react</h3>
-      <button onClick={getApiRequest}>get api</button>
-    </div>
+    <Router>
+      <Routes isAuth={false} />
+    </Router>
   );
 }
 
