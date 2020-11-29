@@ -3,46 +3,46 @@ version: '3'
 services:
   frontend:
     build: ./frontend
-    container_name: d02-frontend
+    container_name: foto-frontend
     command: serve -s build -l 3000
     restart: unless-stopped
     networks:
-      - d02-network
+      - foto-network
 
   api:
     build: ./api
-    container_name: d02-api
+    container_name: foto-api
     command: npm run start
     restart: unless-stopped
     networks: 
-      - d02-network
+      - foto-network
     environment:
-      - PORT=3001
-      - HOST=d02.ru
+      - PORT=3101
+      - HOST=foto.ru
       - MONGO_URL=mongodb://api_db:27017/api
-    # ports:
-    #   - "3001:3001"
-    # expose:
-    #   - "3001"
+    ports:
+      - "3101:3101"
+    expose:
+      - "3101"
     depends_on:
       - api_db
 
   api_db:
     image: mongo:latest
-    container_name: d02-api-db
+    container_name: foto-api-db
     restart: unless-stopped
     networks:
-      - d02-network
+      - foto-network
     volumes:
       - mongodb_api:/data/db
 
   nginx:
     image: nginx:stable-alpine
-    container_name: d02-nginx
+    container_name: foto-nginx
     ports:
       - "80:80"
     networks:
-      - d02-network
+      - foto-network
     volumes:
       - ./nginx/nginx.conf.prod:/etc/nginx/conf.d/nginx.conf
     depends_on:
@@ -53,5 +53,5 @@ volumes:
   mongodb_api:
 
 networks:
-  d02-network: 
+  foto-network: 
     driver: bridge

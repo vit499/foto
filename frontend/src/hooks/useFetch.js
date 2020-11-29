@@ -5,8 +5,8 @@ import useLocalStorage from 'hooks/useLocalStorage'
 
 export default (url) => {
   //const baseUrl = 'https://conduit.productionready.io/api'
-  // if docker: baseUrl = '/api' (docker service)
-  const baseUrl = ''; //'http://127.0.0.1:3003'
+  const baseUrl = '/api' //(docker service)
+  //const baseUrl = ''; //'http://127.0.0.1:3101'
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState(null)
   const [error, setError] = useState(null)

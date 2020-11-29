@@ -1,7 +1,7 @@
 server {
     listen 80 default;
 
-    server_name 192.168.88.231 d02.ru;
+    server_name 192.168.88.231 foto.ru;
     #server_name _ ;
 
     location / {
@@ -9,7 +9,7 @@ server {
     }
 
     location /api {
-        proxy_pass http://api:3001;
+        proxy_pass http://api:3101;
         rewrite ^/api/(.*) /$1 break;
     }
 }

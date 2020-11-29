@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload')
 const mongoose = require('mongoose');
 
 const {port, host, dbUrl} = require('./configuration')
@@ -12,7 +13,10 @@ console.log('api host:', host)
 console.log('dbUrl', dbUrl)
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(fileUpload({}));
 app.use('/users', require('./routes/auth.routes'));
+app.use('/device', require('./routes/device.routes'));
 
 const startServer = () => {
 
